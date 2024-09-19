@@ -1,0 +1,35 @@
+version: '3.8'
+services:
+  backend:
+    build: .
+    network_mode: "host"
+    ports:
+      - "5000:5000"
+    volumes:
+      - ./backend:/backend
+    depends_on:
+      - mysql
+    environment:
+      - FLASK_ENV=development
+  frontend:
+    image: node:18
+    working_dir: /frontend
+    volumes:
+      - ./frontend:/frontend
+    command: >
+      sh -c "npm install -g @angular/cli@17.0.3 && npm install && ng serve --host 0.0.0.0 --port 4200"
+    ports:
+      - "4200:4200"
+  mysql:
+    image: mysql
+    container_name: meu-mysql
+    environment:
+      MYSQL_ROOT_PASSWORD: pass
+      MYSQL_DATABASE: makequestions
+      MYSQL_USER: admin
+      MYSQL_PASSWORD: admin
+      TZ: 'America/Sao_Paulo'
+    ports:
+      - "3306:3306"
+    volumes:
+      - ./dados-mysql:/var/lib/mysql
