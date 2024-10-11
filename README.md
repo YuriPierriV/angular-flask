@@ -1,6 +1,6 @@
 # Make Questions 2.0
 
-
+Parte do front-end angular: https://github.com/YuriPierriV/frontend-angular
 
 
 ## Tecnologias
